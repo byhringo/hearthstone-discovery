@@ -29,14 +29,13 @@ export default class DiscoverSelector extends React.Component {
 	}
 
 	createCardButton(cardID){
-		return (<input
+		return (<img
 					key={"discover_card_btn_" + cardID}
-					type="image"
 					src={this.props.selectedDiscoverCard == cardID ? cardImagePaths[cardID*2] : cardImagePaths[(cardID*2) + 1] }
 					className="discover-card-button"
 					onClick={this.props.setDiscoverCard.bind(this.props.layoutObj, cardID)}
 					>
-				</input>);
+				</img>);
 	}
 
 	render(){

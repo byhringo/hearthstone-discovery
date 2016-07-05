@@ -27,14 +27,13 @@ export default class ClassSelector extends React.Component {
 	}
 
 	createClassButton(classID){
-		return (<input
+		return (<img
 					key={"class_btn_" + classID}
-					type="image"
 					src={this.props.selectedClass == classID ? classIconPaths[classID*2] : classIconPaths[(classID*2) + 1] }
 					className="class-button"
 					onClick={this.props.setClass.bind(this.props.layoutObj, classID)}
 					>
-				</input>);
+				</img>);
 	}
 
 	render(){

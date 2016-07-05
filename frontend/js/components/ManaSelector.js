@@ -13,14 +13,13 @@ export default class ManaSelector extends React.Component {
 	}
 
 	createManaButton(crystalNumber){
-		return (<input
+		return (<img
 					key={"manacrystal_btn_" + crystalNumber}
-					type="image"
 					src={this.props.selectedMana >= crystalNumber ? this.getFilename(crystalNumber, true) : this.getFilename(crystalNumber, false) }
 					className="class-button"
 					onClick={this.props.setManaCrystals.bind(this.props.layoutObj, crystalNumber)}
 					>
-				</input>);
+				</img>);
 	}
 
 	render(){

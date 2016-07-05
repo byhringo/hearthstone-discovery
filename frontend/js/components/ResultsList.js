@@ -144,14 +144,13 @@ export default class ResultsList extends React.Component {
 	}
 
 	createCard(card){
-		return (<input
+		return (<img
 					key={"result_card_" + card.id}
-					type="image"
 					src={this.getImagePath(card.name)}
 					className="results-card-button"
 					onClick={this.props.excludeCard.bind(this.props.layoutObj, card.id)}
 					>
-				</input>);
+				</img>);
 	}
 
 	render(){
