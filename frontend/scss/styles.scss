@@ -1,0 +1,125 @@
+body {
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+
+	&, & * {
+		box-sizing: border-box;
+	}
+
+}
+
+a {
+	color: steelblue;
+}
+
+.wrapper-all {
+	text-align: center;
+	vertical-align: top;
+
+	.question-label {
+		font-size: 36px;
+		margin-top: 20px;
+	}
+
+	.wrapper-format-select {
+		width:100%;
+		display:flex;
+		justify-content: center;
+
+		.format-button {
+			max-height: 100px;
+			margin: 10px;
+		}
+	}
+
+	.wrapper-class-select {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		.class-button {
+			height: 100px;
+		}
+	}
+
+	.wrapper-discover-card-select {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		.discover-card-button {
+			max-height: 200px;
+		}
+	}
+
+	.wrapper-effect-select {
+		width:100%;
+		display:flex;
+		justify-content: center;
+
+		.effect-button {
+			display: flex;
+			flex-direction: column;
+			padding: 0px 10px 0px 10px;
+			.wrapper-effect-image {
+				height: 100px;
+
+				img {
+					height: 100%;
+				}
+			}
+
+			.effect-text {
+				font-weight: 300;
+				font-size: 32px;
+				padding-top: 15px;
+				color: lightgray;
+
+				&[data-selected="true"] {
+					color: black;
+				}
+			}
+		}
+	}
+
+	.wrapper-mana-select {
+		padding-top: 5px;
+		margin: 0 50px;
+	}
+
+	.wrapper-results {
+		margin-top: 50px;
+
+		.results-info {
+			font-size: 18px;
+
+			.redtext{
+				color: rgb(220, 0, 0);
+				font-weight: 600;
+			}
+		}
+
+		.results-cards {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-bottom: 100px;
+			
+
+			.results-card-button {
+				max-height: 200px;
+				margin: 0px 18.1px 50px 18.1px;
+				transition: all .15s;
+
+				&:hover {
+					max-height: 250px;
+					margin: 0px 0px 0px 0px;
+				}
+			}
+		}
+	}
+}
