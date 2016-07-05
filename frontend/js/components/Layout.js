@@ -7,6 +7,7 @@ import DiscoverSelector from "./DiscoverSelector.js";
 //import EffectSelector from "./EffectSelector.js";
 import ManaSelector from "./ManaSelector.js";
 import ResultsList from "./ResultsList.js";
+import Footer from "./Footer.js";
 
 export default class Layout extends React.Component {
 	constructor(){
@@ -50,6 +51,7 @@ export default class Layout extends React.Component {
 	render(){
 		return (
 			<div className="wrapper-all">
+				<h1>Discover your victory!</h1>
 				<FormatSelector 
 					selectedFormat={this.state.format}
 					setFormatStandard={this.setFormat.bind(this, 0)}
@@ -82,6 +84,7 @@ export default class Layout extends React.Component {
 					layoutObj={this}
 					excludeCard={this.excludeCard}
 				/>
+				<Footer />
 			</div>
 		);
 	}

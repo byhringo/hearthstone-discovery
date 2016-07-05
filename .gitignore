@@ -2,3 +2,5 @@ node_modules/
 scrape_hearthpwn_cardimgs.js
 removeuncollectible.js
 createjson.js
+push_all_to_prod.sh
+.gitignore
