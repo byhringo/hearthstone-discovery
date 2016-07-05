@@ -148,9 +148,17 @@ export default class ResultsList extends React.Component {
 					key={"result_card_" + card.id}
 					src={this.getImagePath(card.name)}
 					className="results-card-button"
-					onClick={this.props.excludeCard.bind(this.props.layoutObj, card.id)}
 					>
 				</img>);
+	}
+
+	//Courtesy of: https://www.reddit.com/r/hearthstone/comments/3tc2qm/discover_probabilities_cheat_sheet/
+	markovNeutral(C, N){
+		return 1/(4*C+N)+(N-1)/(4*C+N)/(4*C+N-1)+(N-1)*(N-2)/(4*C+N)/(4*C+N-1)/(4*C+N-2)+(N-1)*4*C/(4*C+N)/(4*C+N-1)/(4*C+N-5)+4*C/(4*C+N)/(4*C+N-4)+4*C*(N-1)/(4*C+N)/(4*C+N-4)/(4*C+N-5)+(4*C)*(4*C-4)/(4*C+N)/(4*C+N-4)/(4*C+N-8);
+	}
+
+	markovClass(C, N){
+		return 4/(4*C+N)+4*N/(4*C+N)/(4*C+N-1)+4*(4*C-4)/(4*C+N)/(4*C+N-4)+4*N*(N-1)/(4*C+N)/(4*C+N-1)/(4*C+N-2)+4*N*(4*C-4)/(4*C+N)/(4*C+N-1)/(4*C+N-5)+4*N*(4*C-4)/(4*C+N)/(4*C+N-4)/(4*C+N-5)+4*(4*C-4)*(4*C-8)/(4*C+N)/(4*C+N-4)/(4*C+N-8);
 	}
 
 	render(){
@@ -188,17 +196,38 @@ export default class ResultsList extends React.Component {
 			var adjustedDiscoverable = discoverableAll + (3 * discoverableClassCards);
 			var adjustedCastable = castableAll + (3 * castableClassCards);
 
-			var percentAll = Math.round((adjustedCastable / adjustedDiscoverable) * 10000)/100;
-			var percentSingle = Math.round((1 / adjustedDiscoverable) * 10000)/100;
-			var percentSingleClass = percentSingle*4;
+			var percentSingle = Math.round(this.markovNeutral(discoverableClassCards, discoverableAll - discoverableClassCards)*10000)/100;
+			var percentSingleClass = Math.round(this.markovClass(discoverableClassCards, discoverableAll - discoverableClassCards)*10000)/100;
+			var percentAll = percentSingle * (castableAll - castableClassCards) + percentSingleClass * castableClassCards;
+			//var percentSingle = this.wnhb(0.25, 3, discoverableClassCards, discoverableAll);
+			//var percentSingleClass = this.wnhb(4, 3, discoverableClassCards, discoverableAll);
 
 			var resultsInfo;
 			//Create the info-text
 			if(discoverablecards.length > 0){
+				var singleCardPercentages;
+			
+				var resultsSingleBoth = (<p>You have a <span className="redtext">{percentSingle}%</span> chance of getting a specific one of them. <span className="redtext">{percentSingleClass}%</span> for class-cards.</p>);
+				var resultsSingleNoNeutral = (<p>You have a <span className="redtext">{percentSingleClass}%</span> chance of getting a specific one of them.</p>);
+				var resultsSingleNoClass = (<p>You have a <span className="redtext">{percentSingle}%</span> chance of getting a specific one of them.</p>);
+
+				var resultsSingle;
+
+				if(discoverableAll == discoverableClassCards){
+					resultsSingle = resultsSingleNoNeutral;
+				}
+				else if(discoverableClassCards == 0){
+					resultsSingle = resultsSingleNoClass;
+				}
+				else{
+					resultsSingle = resultsSingleBoth;
+				}
+
+
 				resultsInfo = (
 					<div className="results-info">
 						<p>You have a <span className="redtext">{percentAll}%</span> chance of getting one of these cards.</p>
-						<p>You have a <span className="redtext">{percentSingle}%</span> chance of getting a specific one of them. <span className="redtext">{percentSingleClass}%</span> for class-cards.</p>
+						{resultsSingle}
 						<p><span className="redtext">Click</span> the cards that don't help you win.</p>
 					</div>);
 			}
@@ -212,7 +241,7 @@ export default class ResultsList extends React.Component {
 
 		return (
 			<div className="wrapper-results">
-				{resultsInfo}
+				{/*resultsInfo  removed until I figure out how to calculate the percentages correctly*/}
 				<div className="results-cards">
 					{discoverablecards}
 				</div>
